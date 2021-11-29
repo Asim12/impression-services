@@ -340,6 +340,7 @@ if(!function_exists('getPakage')){
 
         $CI = &get_instance();
         $db = $CI->mongo_db->customQuery();
+        // print_r($admin_id);
         $getAggregate = [
             [
                 '$match' => [
@@ -373,7 +374,7 @@ if(!function_exists('getPerWeekReviewCount')){
         $endTime   = $CI->mongo_db->converToMongodttime(date('Y-m-d 23:59:59'));
         $startTime = $CI->mongo_db->converToMongodttime(date('Y-m-d 00:00:00', strtotime('- 7 days')));
 
-        $countReview =  $db->user_reviews->find(['admin_id' => (string)$admin_id, 'created_date' => ['$gte' => $startTime,   '$lte' => $endTime]]);
+        $countReview =  $db->user_reviews->find(['reviwer_admin_id' => (string)$admin_id, 'created_date' => ['$gte' => $startTime,   '$lte' => $endTime]]);
         $reviewCount =  iterator_to_array($countReview);
         return count($reviewCount);
     }

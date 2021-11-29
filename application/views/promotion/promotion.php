@@ -169,6 +169,7 @@
             
             .button{
                 float : right;
+                margin-top: 13px;
               	border-radius: 25px;
 				background-color:  #EC4A2A;
 				color: white;
@@ -180,7 +181,7 @@
                 padding-right: 4%;
                 text-decoration: none;
                 display: inline-block;
-                font-size: 16px;
+                font-size: 18px;
                 cursor: pointer;
                 width: auto;
             }
@@ -331,7 +332,6 @@
                                                         </label>
                                                     </div>
                                                 </div>
-
 
                                                 <div class="row" style="margin-top:5%">
                                                     <div class="col-xl-12">

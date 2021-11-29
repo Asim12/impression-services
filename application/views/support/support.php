@@ -484,7 +484,6 @@
                         file += '<div class="sent_msg">';
 
                         file += '<a href="'+response+'" download>download</a>';
-                        // <iframe src="'+response+'" frameborder="0"  class="avatar-sm bx-shadow-mg"></iframe>
                         file += '</a>';
                         file += '<span class="time_date">'+ new Date() +'</span>';
                         file += '</div>';
@@ -543,7 +542,6 @@
                             orderDetails += ' <div class="chat_people">';
                             orderDetails += '<div class="chat_img"> <img src="'+image+'" alt="" class="rounded-circle images avatar-sm bx-shadow-lg image2"> </div>';
                             orderDetails += '<div class="chat_ib">';
-                            orderDetails += '<h5>'+fullName+'<span class="chat_date"><i class="fas fa-video"></i> <i style="margin-left:13px" class="fa fa-phone"></i> </span></h5>';
                             orderDetails += '<p>'+emailAddress+'</p>';
                             orderDetails += '</div>';
                             orderDetails += '</div>';
@@ -562,11 +560,12 @@
                             htmlDesign += '<div class="received_withd_msg">';
                             if(videos){
 
-                                $htmlDesign +='<video width="125px" height="125px" controls><source src="'+ videos['0'] +'" ></video>';
+                                htmlDesign +='<video width="125px" height="125px" controls><source src="'+ videos +'" ></video>';
                             }
                             if(images){
 
-                                $htmlDesign += '<img src="'+images[0]+'" alt="user-image" class="img-rounded" width="125px" height="125px"/>'
+                                htmlDesign += '<a href="'+images+'" download><img src="'+images+'" class="img-rounded"  width="125px" height="125px">';
+                                htmlDesign += '</a>';
                             } 
                             htmlDesign += '<p style="border-radius: 25px; border: 2px solid #e9ecef; background-color:#ebebeb;">'+ firstMessage +'</p>';
                             htmlDesign += '<span class="time_date">'+created_date+'</span>';
@@ -612,14 +611,6 @@
                                 }
                             }//end loop
                             $('#messagesData').html(htmlDesign);
-
-                            // var ticketReply = '<div class="input_msg_write" style="display: flex">';
-                            // ticketReply +='<button class="fileIcon" type="button"><i class="fas fa-paperclip" aria-hidden="true"></i></button>';
-                            // ticketReply +='<button class="emojiIcon" type="button"> <i class="far fa-frown openemoji" aria-hidden="true"></i></button>';
-                            // ticketReply +='<textarea type="text" class="write_msg form-control textarea-control filters_style" placeholder="type Message" id="sendMessage"></textarea>';
-                            // ticketReply +='<button class="msg_send_btn" type="button"> <i class="fa fa-paper-plane" aria-hidden="true"></i></button>';
-                            // ticketReply +='</div>'; 
-                            // $('#messageReply').html(ticketReply);
                         }
                     });
                 })
@@ -645,16 +636,6 @@
                                 addMessage += '</div>';
                                 addMessage += '</div>';
 
-                                // addMessage += '<div class="outgoing_msg">';
-                                // addMessage += ' <div class="sent_msg" style="display:flex">';
-                                // addMessage += '<div style="width:14%;"> <img src="https://ptetutorials.com/images/user-profile.png" alt=""> </div> ';
-                                // addMessage += '<div style="margin-left: 3%">';
-                                // addMessage += '<p style="border-radius: 25px; border: 2px solid #e9ecef; background-color:#F18BB1;">'+sendMessage+'</p>';
-                                // addMessage += '<span class="time_date">'+new Date()+'</span>';
-                                // addMessage += '</div>';
-                                // addMessage += '</div>';
-                                // addMessage += '</div>';
-
                                 $('#messagesData').append(addMessage);
                             }
                         });
@@ -662,9 +643,32 @@
                 });
             });
         </script>
-        <!-- emoji picker script -->
-        <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+
+        <script src="<?php echo SURL;?>assets/libs/jqvmap/jquery.vmap.min.js"></script>
+        <script src="<?php echo SURL;?>assets/libs/jqvmap/jquery.vmap.usa.js"></script>
+        <script src="<?php echo SURL;?>assets/js/pages/dashboard.init.js"></script>
+        <!-- App js -->
+        <script src="<?php echo SURL;?>assets/js/vendor.min.js"></script>
+        <!-- KNOB JS -->
+        <script src="<?php echo SURL;?>assets/libs/jquery-knob/jquery.knob.min.js"></script>
+        <!-- Chart JS -->
+        <script src="<?php echo SURL;?>assets/libs/chart-js/Chart.bundle.min.js"></script>
+        <!-- Jvector map -->
+        <script src="<?php echo SURL;?>assets/libs/jqvmap/jquery.vmap.min.js"></script>
+        <script src="<?php echo SURL;?>assets/libs/jqvmap/jquery.vmap.usa.js"></script>
+        <!-- Datatable js -->
+        <script src="<?php echo SURL;?>assets/libs/datatables/jquery.dataTables.min.js"></script>
+        <script src="<?php echo SURL;?>assets/libs/datatables/dataTables.bootstrap4.min.js"></script>
+        <script src="<?php echo SURL;?>assets/libs/datatables/dataTables.responsive.min.js"></script>
+        <script src="<?php echo SURL;?>assets/libs/datatables/responsive.bootstrap4.min.js"></script>
+        <!-- Dashboard Init JS -->
+        <script src="<?php echo SURL;?>assets/js/pages/dashboard.init.js"></script>
+        <!-- App js -->
+        <script src="<?php echo SURL;?>assets/js/app.min.js"></script>
+
         <script src="https://cdnjs.cloudflare.com/ajax/libs/emojionearea/3.4.2/emojionearea.min.js"></script>
+        <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+
         <script>
             $('#').emojioneArea({
                 pickerPosition: "top"

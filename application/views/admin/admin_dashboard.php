@@ -12,6 +12,7 @@
 
         <!-- jvectormap -->
         <link href="<?php echo SURL;?>assets/libs/jqvmap/jqvmap.min.css" rel="stylesheet" />
+
         <!-- DataTables -->
         <link href="<?php echo SURL;?>assets/libs/datatables/dataTables.bootstrap4.min.css" rel="stylesheet" type="text/css"/>
         <link href="<?php echo SURL;?>assets/libs/datatables/responsive.bootstrap4.min.css" rel="stylesheet" type="text/css"/>
@@ -116,8 +117,8 @@
 
             .nameStyle{ 
                 height: 17px;
-                width: 148.66522216796875px;
-                left: 480.0958251953125px;
+                width: 500px;
+                left: 500px;
                 top: 1124px;
                 border-radius: nullpx;
                 font-family: Gilroy;
@@ -132,7 +133,7 @@
                 position: absolute;
                 width: 121.81px;
                 height: 14px;
-                left: 37%;
+                left: 100px;
                 top: 22%;
                 font-family: Gilroy;
                 font-style: normal;
@@ -155,8 +156,8 @@
             }
             .image1 {
                 position: absolute;
-                top: 54%;
-                left: 20%;
+                top: 54px;
+                left: 66px;
                 width: 59px;
                 height: 56px;
                 border: 1px white solid;
@@ -180,6 +181,14 @@
                 background-color: #ddd;
                 border-radius: 5px;
             }
+
+            .stylePosition{
+                top: 64px;
+                left: 140px !important;
+                font-size: 26px;
+                position: absolute;
+            }
+
         </style>
     </head>
     <body>
@@ -379,6 +388,9 @@
                                                                     <span class="timeAgo" title="<?php echo $join_date;?>"> <?php echo $last_time_ago;?> </span>
                                                                 </span>
                                                                 <img src="<?php echo $imageSourceOther;?>" alt="user-pic" class="rounded-circle images avatar-sm bx-shadow-lg image1" />
+                                                                <i class="fas fa-arrow-right stylePosition"></i>
+
+
                                                             </div>
 
                                                         </td>

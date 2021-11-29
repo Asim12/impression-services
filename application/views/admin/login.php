@@ -52,11 +52,11 @@
 
                                 </form>
                                 <div class="mt-2"> <?php if($this->session->flashdata('error')) echo $this->session->flashdata('error'); ?></div>
-                                <div class="row mt-3">
+                                <!-- <div class="row mt-3">
                                     <div class="col-12 text-center">
                                         <p class="text-muted mb-0">Don't have an account? <a href="auth-register.html" class="text-dark ml-1"><b>Sign Up</b></a></p>
-                                    </div> <!-- end col -->
-                                </div>
+                                    </div> 
+                                </div> -->
                                 <!-- end row -->
 
                             </div> <!-- end card-body -->

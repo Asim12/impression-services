@@ -383,17 +383,37 @@ Class Rest_calls extends REST_Controller {
 
                     $phone_number      = (string)$this->post('phone_number'); 
                     $password          = md5($this->post('password'));  
+                    $admin_id          = (string)$this->post('admin_id');
                     $confirmed_passwrd = md5($this->post('confirmed_password'));
 
                     if($password == $confirmed_passwrd){
+                      if(empty($admin_id)){
 
-                        $db->users->updateOne([ 'phone_number' => $phone_number], ['$set' => ['password' => $password ] ]);
+                        $check = $db->users->updateOne(['phone_number' => $phone_number], ['$set' => ['password' => $password ] ]);
+                      }else{
 
-                        $response_array = [
-                            'status' =>  'Your Password Is Successfully Updated!!!!!!!!!!!',
-                            'type'   =>   '200'
-                        ];
-                        $this->set_response($response_array, REST_Controller::HTTP_CREATED);
+                        $check = $db->users->updateOne(['phone_number' => $phone_number, '_id' => $this->mongo_db->mongoId($admin_id)], ['$set' => ['password' => $password ] ]);
+                      }
+
+                      if($check->getModifiedCount() > 0){
+
+                        $message = 'Your Password Is Successfully Updated!!!!!!!!!!!';
+                        $type = '200';
+                      }elseif($check->getModifiedCount() == 0){
+
+                        $message = 'Password not updated!!';
+                        $type = '400';
+                      }else{
+
+                        $message = 'This phone number is not Associated with your account';
+                        $type = '400';
+                      }
+
+                      $response_array = [
+                          'status' =>   $message,
+                          'type'   =>   $type
+                      ];
+                      $this->set_response($response_array, REST_Controller::HTTP_CREATED);
 
                     }else{
 
@@ -645,7 +665,6 @@ Class Rest_calls extends REST_Controller {
       $received_Token = $received_Token_Array['Authorization'];
 
     }
-
     $token          =   trim(str_replace("Token: ", "", $received_Token));
     $tokenArray     =   $this->Mod_isValidUser->jwtDecode((string)$token);
 
@@ -656,10 +675,11 @@ Class Rest_calls extends REST_Controller {
 
       // print_r($getUserPakage);
       $countReview   = getPerWeekReviewCount($admin_id);
+      // echo "<br>";print_r($countReview);
       if($getUserPakage  == 'Standard' &&  $countReview >= 8 ){
 
         $response_array['status'] =  'You are using Standard package you can not submit review more than 8 in a week!';
-        $response_array['type']   =   '200';
+        $response_array['type']   =   '400';
         $this->set_response($response_array, REST_Controller::HTTP_CREATED);
         return ;
       }elseif($getUserPakage  == 'free' || $getUserPakage  == 'Free' ||  empty($getUserPakage)){
@@ -667,7 +687,7 @@ Class Rest_calls extends REST_Controller {
         if($countReview >= 3){
 
           $response_array['status'] =  'You are using free package you can not submit review more than 3 in a week!';
-          $response_array['type']   =   '200';
+          $response_array['type']   =   '400';
           $this->set_response($response_array, REST_Controller::HTTP_CREATED);
           return ;
         }

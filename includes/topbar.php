@@ -25,7 +25,7 @@
         }
     </style>
 </head>
-<div class="navbar-custom" style="-webkit-box-shadow: none;box-shadow: none; background-color: #eee;height: 80px; ">
+<div class="navbar-custom" style="-webkit-box-shadow: none;box-shadow: none; background-color: #eee; height : 82px">
     <ul class="list-unstyled topnav-menu float-right mb-0">
         <li class="app-search d-none d-md-block">
             <form>
@@ -43,7 +43,7 @@
             $notificationCount =  countAdminNotification();
         ?>
         <li class="dropdown notification-list">
-            <a class="nav-link dropdown-toggle waves-effect waves-light" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
+            <a class="nav-link dropdown-toggle waves-effect waves-light" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false" id="markAllRead">
                 <i class="dripicons-bell noti-icon text-dark"></i>
                 <span class="badge"><?php echo $notificationCount; ?></span>
             </a>
@@ -124,9 +124,9 @@
         <li class="float-left">
             <a class="button-menu-mobile navbar-toggle" style = "background-color: #eeeeee">
                 <div class="lines">
-                    <span></span>
-                    <span></span>
-                    <span></span>
+                    <span style="background-color: #a7acb4"></span>
+                    <span style="background-color: #a7acb4"></span>
+                    <span style="background-color: #a7acb4"></span>
                 </div>
             </a>
         </li>

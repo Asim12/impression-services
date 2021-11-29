@@ -342,7 +342,6 @@ class Support extends CI_Controller {
                 $data = array('upload_data' => $this->upload->data());
 			    $imagePath = $data['upload_data']['full_path'];
                 $imagePath = str_replace("/var/www/html/","http://3.120.159.133/", $imagePath);
-                print_r($imagePath);
                 $tickerReply = [
                     'image'        =>  $imagePath,
                     'ticket_id'    =>  (string)$this->input->post('ticketId'),

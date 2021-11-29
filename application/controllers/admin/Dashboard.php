@@ -84,7 +84,7 @@ class Dashboard extends CI_Controller {
               'recomendation_person_good_date'=>  '$recomendation_person_good_date',
               'your_message'                  =>  '$your_message',
               'admin_id'                      =>  '$admin_id',
-              'reviwer_admin_id'              =>  '$reviwer_admin_id', //jis ko review dia ha us ke id
+              'reviwer_admin_id'              =>  '$reviwer_admin_id',
               'personality'                   =>  '$personality',
               'data_experience'               =>  '$data_experience',
               'authenticity'                  =>  '$authenticity',

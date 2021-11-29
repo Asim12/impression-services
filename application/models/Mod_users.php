@@ -47,12 +47,11 @@ class Mod_users extends CI_Model {
       $search['full_name']  =  [ '$regex' => $full_name, '$options' => 'si' ];
     }
 
-    $aggregateQuery = [
+    $aggregateQuery = [     //reviwer admin id  ====>>>   current user id ====>>> jis ko review da rha ha
 
       [
         '$match' => $search
       ],
-
       [
         '$project' => [
           '_id'           =>  ['$toString' => '$_id'],
@@ -89,9 +88,9 @@ class Mod_users extends CI_Model {
               '$project' => [
                 '_id'                   =>  '$_id',
                 'reviwer_admin_id'      =>  '$reviwer_admin_id',
-                'authticity'           =>  ['$divide' =>[ ['$sum' =>  ['$looks',  '$brain' , '$career']], 3]],
-                'personality'          =>  ['$divide' =>[ ['$sum' =>  ['$funny',  '$intelegent' , '$polite']], 3]],              
-                'data_experience'      =>  ['$divide' =>[ ['$sum' =>  ['$recomendation_person_good_date', '$would_you_out_go_again', '$patner_distracted', '$dating_experienced', '$communication_post_date', '$date_start_on_time',  '$how_was_physical_chemistry' , '$did_you_feel_safe', '$did_you_feel_pressured', '$communication_prior']], 10]],
+                'authticity'            =>  ['$divide' =>[ ['$sum' =>  ['$looks',  '$brain' , '$career']], 3]],
+                'personality'           =>  ['$divide' =>[ ['$sum' =>  ['$funny',  '$intelegent' , '$polite']], 3]],              
+                'data_experience'       =>  ['$divide' =>[ ['$sum' =>  ['$recomendation_person_good_date', '$would_you_out_go_again', '$patner_distracted', '$dating_experienced', '$communication_post_date', '$date_start_on_time',  '$how_was_physical_chemistry' , '$did_you_feel_safe', '$did_you_feel_pressured', '$communication_prior']], 10]],
                 'created_date'          =>  '$created_date',
                 'your_message'          =>  '$your_message',
                 'approves'              =>  '$approves',
@@ -162,18 +161,81 @@ class Mod_users extends CI_Model {
                           '$match' => [
                             '$expr' => [
                               '$eq' => [
-                                '$reviwer_admin_id',
+                                '$admin_id',
                                 '$$admin_id'
                               ]
                             ],
-                            
+                            'status' => "approve"
                           ],
+                        ],
+
+                        [
+                          '$group' => [
+                            '_id'                           => '$_id',
+                            'looks'                         => ['$first' =>  '$looks'],
+                            'brain'                         => ['$first' =>  '$brain'],
+                            'career'                        => ['$first' =>  '$career'],
+                            'date_start_on_time'            => ['$first' =>  '$date_start_on_time'],
+                            'how_was_physical_chemistry'    => ['$first' =>  '$how_was_physical_chemistry'],
+                            'did_you_feel_safe'             => ['$first' =>  '$did_you_feel_safe'],
+                            'did_you_feel_pressured'        => ['$first' =>  '$did_you_feel_pressured'],
+                            'communication_prior'           => ['$first' =>  '$communication_prior'],
+                            'communication_post_date'       => ['$first' =>  '$communication_post_date'],
+                            'dating_experienced'            => ['$first' =>  '$dating_experienced'],
+                            'patner_distracted'             => ['$first' =>  '$patner_distracted'],
+                            'would_you_out_go_again'        => ['$first' =>  '$would_you_out_go_again'],
+                            'recomendation_person_good_date'=> ['$first' =>  '$recomendation_person_good_date'],
+                            'funny'                         => ['$first' =>  '$funny'],
+                            'intelegent'                    => ['$first' =>  '$intelegent'],
+                            'polite'                        => ['$first' =>  '$polite'],
+                            'created_date'                  => ['$first' => '$created_date'],
+            
+                          ]
+                        ],
+            
+                        [
+                          '$project' => [
+                            '_id'                   =>  '$_id',
+                            'authticity'            =>  ['$divide' =>[ ['$sum' =>  ['$looks',  '$brain' , '$career']], 3]],
+                            'personality'           =>  ['$divide' =>[ ['$sum' =>  ['$funny',  '$intelegent' , '$polite']], 3]],              
+                            'data_experience'       =>  ['$divide' =>[ ['$sum' =>  ['$recomendation_person_good_date', '$would_you_out_go_again', '$patner_distracted', '$dating_experienced', '$communication_post_date', '$date_start_on_time',  '$how_was_physical_chemistry' , '$did_you_feel_safe', '$did_you_feel_pressured', '$communication_prior']], 10]],
+                            'created_date'          =>  '$created_date',
+                          ]
+                        ],
+                  
+                        [
+                          '$group' => [
+                  
+                            '_id'        =>   null,
+                            'authticity'        =>   [ '$sum' => '$authticity'],
+                            'personality'       =>   [ '$sum' => '$personality'],
+                            'data_experience'   =>   [ '$sum' => '$data_experience'],
+                            'total'             =>   [ '$sum' => 1]
+                          ]
+                        ],
+            
+                        [
+                          '$addFields' => [
+            
+                            'overAll1' =>   ['$sum' => [ '$authticity', '$personality', '$data_experience']]
+            
+                          ]
+                        ],
+                        [
+                          '$project' => [
+                  
+                            '_id'     =>  null,
+            
+                            'total'  => ['$multiply' => ['$total' , 3]],
+                            'overAll' => '$overAll1' 
+                          ]
                         ],
           
                         [
-                          '$group' => [
-                            '_id'           =>  '$reviwer_admin_id',
-                            'rating'        =>  ['$first' => '3']
+                          '$project' => [
+                  
+                            '_id'     =>  null,
+                            'overAll' =>  ['$divide' => [ '$overAll', '$total']], 
                           ]
                         ],
                       ],

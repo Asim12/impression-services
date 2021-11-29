@@ -387,9 +387,9 @@ body {
     color: rgba(255, 255, 255, 0.8);
     min-width: 32px;
     display: block;
-    line-height: 70px;
+    line-height: 82px;
     text-align: center;
-    max-height: 70px; }
+    max-height: 82px; }
   .navbar-custom .dropdown.show .nav-link {
     background-color: rgba(255, 255, 255, 0.05); }
   .navbar-custom .menu-left {
@@ -412,7 +412,7 @@ body {
     border: none;
     color: #414d5f;
     display: block;
-    height: 70px;
+    height: 82px;
     line-height: 70px;
     width: 60px;
     background-color: transparent;
